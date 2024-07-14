@@ -1,36 +1,26 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the workflow will run
+name: BUILD AND PUSH DOCKER IMAGE
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+ push:
+   branches:
+     - main
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+   runs-on: ubuntu-latest 
+   steps:
+     - name: checkout githu repo 
+       uses: actions/checkout@v2 
+     - name: login docker 
+       uses: docker/login@v3
+       with:
+         username: ${{secrets.DOCKER_USERNAME}}
+         password: ${{secrets.DOCKER_PASSWORD}}
+     - name: build docker image 
+       run: docker build -t aws_image .
+     - name: run image 
+       run: docker run -d -p 8080:80 aws_image 
+     - name: tag image 
+       run: docker tag aws_image:latest betrand1997/aws_image:latest
+     - name: push image 
+       run: docker push betrand1997/aws_image:latest
+     - name: check image is running
+       run: docker ps 
