@@ -17,7 +17,7 @@ jobs:
      - name: build docker image 
        run: docker build -t aws_image .
      - name: run image 
-       run: docker run -d -p 8080:80 aws_image 
+       run: docker run -d -p 8081:80 aws_image 
      - name: tag image 
        run: docker tag aws_image:latest betrand1997/aws_image:latest
      - name: push image 
