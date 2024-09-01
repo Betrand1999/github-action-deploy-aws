@@ -20,9 +20,9 @@ jobs:
           aws-region: us-east-1  # Ensure this matches your EKS cluster region
 
       - name: Install kubectl
-        uses: aws-actions/install-kubectl@v2
+        uses: azure/setup-kubectl@v3  # Correct action for installing kubectl
         with:
-          version: 'latest'  # Install the latest version of kubectl
+          version: 'latest'  # Specify the version or use 'latest'
 
       - name: Login to Amazon EKS
         id: eks-login 
