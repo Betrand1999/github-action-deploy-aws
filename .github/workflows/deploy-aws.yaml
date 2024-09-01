@@ -21,6 +21,11 @@ jobs:
 
       - name: Login to Amazon EKS
         id: eks-login
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1  
+          
         run: |
           aws eks update-kubeconfig --name my-eks --region us-east-1
           kubectl get pods
