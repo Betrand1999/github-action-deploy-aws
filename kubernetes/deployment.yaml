@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: mydeploy
-        image: httpd
+        image: betrand1997/myapp-web
         resources:
           limits:
             memory: "128Mi"
