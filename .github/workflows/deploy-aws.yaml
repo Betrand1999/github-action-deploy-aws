@@ -23,14 +23,13 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'  # Install the latest version of kubectl
-
-      - name: Login to Amazon EKS
-        id: eks-login 
-        run: |
-          # Update kubeconfig to use the specified EKS cluster
-          aws eks update-kubeconfig --name my-eks --region us-east-1
-          # Verify connection to the cluster
-          kubectl get nodes
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1   
+  
           
       - name: Deploy to EKS
         run: |
