@@ -22,7 +22,7 @@ jobs:
       - name: Login to Amazon EKS
         id: eks-login
         run: |
-          aws eks update-kubeconfig --name my-eks --region us-east-2
+          aws eks update-kubeconfig --name my-eks --region us-east-1
           kubectl get pods
           
       - name: Deploy to EKS
