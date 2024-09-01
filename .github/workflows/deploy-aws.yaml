@@ -20,9 +20,9 @@ jobs:
           aws-region: us-east-1  # Ensure this matches your EKS cluster region
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v3  # Correct action for installing kubectl
+        uses: azure/setup-kubectl@v3
         with:
-          version: 'latest'  # Specify the version or use 'latest'
+          version: 'latest'  # Install the latest version of kubectl
 
       - name: Login to Amazon EKS
         id: eks-login 
@@ -30,7 +30,7 @@ jobs:
           # Update kubeconfig to use the specified EKS cluster
           aws eks update-kubeconfig --name my-eks --region us-east-1
           # Verify connection to the cluster
-          kubectl get pods
+          kubectl get nodes
           
       - name: Deploy to EKS
         run: |
