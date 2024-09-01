@@ -1,27 +1,24 @@
-name: BUILD AND PUSH DOCKER IMAGE
-on:
+name: Build push docker images
+on: 
  push:
    branches:
      - main
 jobs:
-  build:
-   runs-on: ubuntu-latest 
-   if: false
+  Build:
+   runs-on: ubuntu-latest
    steps:
-     - name: checkout githu repo 
-       uses: actions/checkout@v3 
-     - name: login docker 
-       uses: docker/login-action@v3
+     - name: checkout repo 
+       uses: actions/checkout@v1 
+     - name: login to docker
+       uses: docker/login-action
        with:
          username: ${{secrets.DOCKER_USERNAME}}
          password: ${{secrets.DOCKER_PASSWORD}}
      - name: build docker image 
-       run: docker build -t aws_image .
-     - name: run image 
-       run: docker run -d -p 8081:80 aws_image 
-     - name: tag image 
-       run: docker tag aws_image:latest betrand1997/aws_image:latest
+       run: |
+        docker build -t myapp-web 
+        docker images
+     - name: tag  image 
+       run: docket tag myapp-web betrand1997/myapp-web
      - name: push image 
-       run: docker push betrand1997/aws_image:latest
-     - name: check image is running
-       run: docker ps 
+       run: docker push  betrand1997/myapp-web
