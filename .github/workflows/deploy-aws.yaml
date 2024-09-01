@@ -19,11 +19,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2  # Ensure this matches your EKS cluster region
 
-      - name: Install kubectl
-        uses: aws-actions/install-kubectl@v2
-        with:
-          version: 'latest'  # Specify version or use 'latest'
-
       - name: Login to Amazon EKS
         id: eks-login
         run: |
